@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cory's SEO Checker</title>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <img src="logo.jpg" alt="Logo" class="logo">
+    <h1>Cory's SEO Check</h1>
+  </div>
+  <div class="buttons">
+    <button id="checkHeaders">On Page Check</button>
+    <button id="checkGoogleIndex">Check Google Index</button>
+    <button id="checkPageSpeed">Check PageSpeed Insights</button>
+    <button id="checkGoogleCache">Check Google Cache</button>
+    <button id="checkImageAltText">Check Image Alt Text</button> <!-- Changed the ID -->
+    <hr>
+    <label for="prompts">Choose a prompt:</label>
+    <select id="prompts">
+      <option value="Prompt 1">Prompt 1</option>
+      <option value="Prompt 2">Prompt 2</option>
+      <!-- Add more options for the prompts you want to include -->
+    </select>
+    <button id="insertPrompt">Insert Prompt</button>
+  </div>
+  <div id="altTextResult" class="result"></div>
+  <div id="result" class="result"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+
