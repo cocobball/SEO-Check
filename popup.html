@@ -3,6 +3,26 @@
 <head>
   <title>Cory's SEO Checker</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
+  <style>
+    /* Additional styles for the link section */
+    .link-section {
+      display: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .link-section a {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+  <script>
+    // JavaScript to toggle the link section visibility
+    function toggleLinkSection() {
+      var linkSection = document.getElementById('linkSection');
+      linkSection.style.display = linkSection.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </head>
 <body>
   <div class="header">
@@ -14,7 +34,6 @@
     <button id="checkGoogleIndex">Check Google Index</button>
     <button id="checkPageSpeed">Check PageSpeed Insights</button>
     <button id="checkGoogleCache">Check Google Cache</button>
-    <button id="checkImageAltText">Check Image Alt Text</button> <!-- Changed the ID -->
     <hr>
     <label for="prompts">Choose a prompt:</label>
     <select id="prompts">
@@ -23,11 +42,19 @@
       <!-- Add more options for the prompts you want to include -->
     </select>
     <button id="insertPrompt">Insert Prompt</button>
+    <!-- Added toggle for image hover feature -->
+    <label>
+      Enable Image Hover:
+      <input type="checkbox" id="imageHoverToggle" checked>
+    </label>
   </div>
   <div id="altTextResult" class="result"></div>
   <div id="result" class="result"></div>
+  <div class="link-section" id="linkSection">
+    <a href="https://www.google.com">Google</a>
+    <!-- Add more default links as needed -->
+  </div>
+  <button onclick="toggleLinkSection()">Show Links</button>
   <script src="popup.js"></script>
 </body>
 </html>
-
-
