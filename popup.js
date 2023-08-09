@@ -15,6 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join('<br>');
         resultDiv.innerHTML += '<div class="section"><span class="title">H2 tags:</span><br>' + (h2TagsContent || 'Not found') + '</div>';
         resultDiv.innerHTML += '<div class="section"><span class="title">Canonical Tag:</span> <span style="color:' + (response.canonicalStatus ? 'green' : 'red') + '">' + (response.canonicalStatus ? 'Self-referencing (Good)' : 'Not self-referencing (Bad)') + '</span></div>';
+
+        // New code for additional functionalities
+        resultDiv.innerHTML += '<div class="section"><span class="title">Meta Robots:</span> ' + (response.robotsMeta || 'Not found') + '</div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">Images with ALT:</span> ' + response.imagesWithAlt + '</div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">Images without ALT:</span> ' + response.imagesWithoutAlt + '</div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">External Links:</span> ' + response.externalLinks + '</div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">Internal Links:</span> ' + response.internalLinks + '</div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">Robots.txt:</span> <a href="' + response.robotsTxtLink + '" target="_blank">' + response.robotsTxtLink + '</a></div>';
+        resultDiv.innerHTML += '<div class="section"><span class="title">Sitemap:</span> ' + (response.sitemap || 'Not found') + '</div>';
       });
     });
   });
@@ -37,11 +46,42 @@ document.addEventListener('DOMContentLoaded', function() {
   var isHeadingPopupEnabled = true;
 
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === "toggleImageHover") {
-      isImageHoverEnabled = request.enabled;
-      sendResponse({ success: true });
+    if (request.action === "checkHeaders") {
+      var h1Tag = document.querySelector('h1');
+      var allH2Tags = document.querySelectorAll('h2');
+      var h2Texts = Array.from(allH2Tags).map(tag => tag.textContent);
+      var metaDescription = document.querySelector('meta[name="description"]');
+      var metaTitle = document.title;
+      var canonicalTag = document.querySelector('link[rel="canonical"]');
+      var canonicalURL = canonicalTag ? canonicalTag.href : null;
+      var isSelfReferencing = canonicalURL === window.location.href;
+      
+      // New code for additional functionalities
+      var allImages = document.querySelectorAll('img');
+      var imagesWithAlt = Array.from(allImages).filter(img => img.alt && img.alt.trim() !== '').length;
+      var imagesWithoutAlt = allImages.length - imagesWithAlt;
+      var allLinks = document.querySelectorAll('a');
+      var externalLinks = Array.from(allLinks).filter(link => link.host !== window.location.host).length;
+      var internalLinks = allLinks.length - externalLinks;
+      var robotsTag = document.querySelector('meta[name="robots"]');
+      var sitemapTag = document.querySelector('link[rel="sitemap"]');
+      var robotsTxtLink = window.location.origin + "/robots.txt";
+
+      sendResponse({
+        h1: h1Tag ? h1Tag.textContent : null,
+        h2s: h2Texts,
+        metaDescription: metaDescription ? metaDescription.content : null,
+        metaTitle: metaTitle,
+        canonicalStatus: isSelfReferencing,
+        imagesWithAlt: imagesWithAlt,
+        imagesWithoutAlt: imagesWithoutAlt,
+        externalLinks: externalLinks,
+        internalLinks: internalLinks,
+        robotsMeta: robotsTag ? robotsTag.content : null,
+        sitemap: sitemapTag ? sitemapTag.href : null,
+        robotsTxtLink: robotsTxtLink
+      });
     }
-    // Add other action handlers here
   });
 
   document.addEventListener('mouseover', function(e) {
@@ -102,20 +142,22 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
-});
-document.getElementById('checkGoogleIndex').addEventListener('click', function() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.create({ url: 'https://www.google.com/search?q=site:' + tabs[0].url });
-  });
-});
-document.getElementById('checkPageSpeed').addEventListener('click', function() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.create({ url: 'https://developers.google.com/speed/pagespeed/insights/?url=' + tabs[0].url });
-  });
-});
 
-document.getElementById('checkGoogleCache').addEventListener('click', function() {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    chrome.tabs.create({ url: 'https://webcache.googleusercontent.com/search?q=cache:' + tabs[0].url });
+  document.getElementById('checkGoogleIndex').addEventListener('click', function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.create({ url: 'https://www.google.com/search?q=site:' + tabs[0].url });
+    });
+  });
+
+  document.getElementById('checkPageSpeed').addEventListener('click', function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.create({ url: 'https://developers.google.com/speed/pagespeed/insights/?url=' + tabs[0].url });
+    });
+  });
+
+  document.getElementById('checkGoogleCache').addEventListener('click', function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.create({ url: 'https://webcache.googleusercontent.com/search?q=cache:' + tabs[0].url });
+    });
   });
 });
