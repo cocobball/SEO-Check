@@ -103,3 +103,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+document.getElementById('checkGoogleIndex').addEventListener('click', function() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.create({ url: 'https://www.google.com/search?q=site:' + tabs[0].url });
+  });
+});
+document.getElementById('checkPageSpeed').addEventListener('click', function() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.create({ url: 'https://developers.google.com/speed/pagespeed/insights/?url=' + tabs[0].url });
+  });
+});
+
+document.getElementById('checkGoogleCache').addEventListener('click', function() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.create({ url: 'https://webcache.googleusercontent.com/search?q=cache:' + tabs[0].url });
+  });
+});
