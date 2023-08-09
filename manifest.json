@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "SEO Checker",
+  "name": "Cory's SEO Check",
   "description": "Checks for the presence of tags on the current page",
   "version": "1.0",
   "action": {
