@@ -16,43 +16,45 @@
       margin-bottom: 5px;
     }
   </style>
-  <!-- JavaScript code here ... -->
 </head>
 <body>
   <div class="header">
     <img src="logo.jpg" alt="Logo" class="logo">
     <h1>Cory's SEO Check</h1>
   </div>
+
   <div class="buttons">
     <button id="checkHeaders">On Page Check</button>
-   <button id="schemaCheck">Schema Check</button>
+    <button id="schemaCheck">Schema Check</button>
     <button id="checkGoogleIndex">Check Google Index</button>
     <button id="checkPageSpeed">Check PageSpeed Insights</button>
     <button id="checkGoogleCache">Check Google Cache</button>
     <hr>
-<label for="prompts">Chatgpt Helper: Choose a prompt:</label>
-<select id="prompts">
-  <option value="customPrompt1">Prompt Generator</option>
-  <option value="customPrompt2">Custom Prompt 2</option>
-</select>
-<p style="color: red;">Working on paste functionalilty but for time being choose a prompt press insert and copy from below window</p>
+
+    <label for="prompts">ChatGPT Helper: Choose a prompt:</label>
+    <select id="prompts">
+      <option value="customPrompt1">Prompt Generator</option>
+      <option value="customPrompt2">Custom Prompt 2</option>
+    </select>
+    <p style="color: red;">Working on paste functionality but for now, choose a prompt, press insert, and copy from the window below</p>
     <button id="insertPrompt">Insert Prompt</button>
     <textarea id="prompt-textarea" tabindex="0" data-id="root" rows="1" placeholder="Send a message" class="m-0 w-full resize-none border-0 bg-transparent p-0 pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparent md:pr-12 pl-3 md:pl-0" style="max-height: 200px; height: 24px; overflow-y: hidden;"></textarea>
   </div>
+
   <div id="altTextResult" class="result"></div>
   <div id="result" class="result"></div>
-  
 
+  <p style="color: red;">Enable image hover; this will display an overlay with img alt text, img size, and intrinsic size. Heading callouts will be added to this enable instead of being on by default.</p>
 
-<p style="color: red;">Enable image hoover;this will make overlay showing img alt text,img size and intrinsic size. Will add the heading callouts to this enable instead of on by default </p>
-
-  <!-- Moved checkbox and Show Links button to the bottom --> 
-  <!-- Want to remove this section but it breaks the schema checker output  -->
- <label>
-    Enable Image Hover:
+  <!-- Moved checkbox and Show Links button to the bottom -->
+  <label>
     <input type="checkbox" id="imageHoverToggle" checked>
+    Enable Image Hover
   </label>
-
+  <label>
+    <input type="checkbox" id="headingPopupToggle" checked>
+    Enable Heading Tags Display
+  </label>
 
   <script src="popup.js"></script>
 </body>
