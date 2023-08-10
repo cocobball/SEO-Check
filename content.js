@@ -12,9 +12,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.action === "toggleHeadingPopup") {
     isHeadingPopupEnabled = request.enabled;
     sendResponse({ success: true });
+  } else if (request.action === "performSchemaCheck") { // Added schema check action
+    performSchemaCheck(sendResponse);
+    return true; // Enables asynchronous response
   }
 });
+// New function to perform schema check
+function performSchemaCheck(sendResponse) {
+  // Find the script tag containing the schema data
+  var schemaScriptTag = document.querySelector('script[type="application/ld+json"]');
+  
+  // If the script tag is found, parse its content as JSON
+  var schemaData = schemaScriptTag ? JSON.parse(schemaScriptTag.textContent) : null;
 
+  // Send the schema data as a response
+  sendResponse(schemaData);
+}
 // Display image information on hover
 document.addEventListener('mouseover', function(e) {
   if (!isImageHoverEnabled) return;
