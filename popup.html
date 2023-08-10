@@ -16,13 +16,7 @@
       margin-bottom: 5px;
     }
   </style>
-  <script>
-    // JavaScript to toggle the link section visibility
-    function toggleLinkSection() {
-      var linkSection = document.getElementById('linkSection');
-      linkSection.style.display = linkSection.style.display === 'block' ? 'none' : 'block';
-    }
-  </script>
+  <!-- JavaScript code here ... -->
 </head>
 <body>
   <div class="header">
@@ -31,6 +25,7 @@
   </div>
   <div class="buttons">
     <button id="checkHeaders">On Page Check</button>
+   <button id="schemaCheck">Schema Check</button>
     <button id="checkGoogleIndex">Check Google Index</button>
     <button id="checkPageSpeed">Check PageSpeed Insights</button>
     <button id="checkGoogleCache">Check Google Cache</button>
@@ -39,22 +34,25 @@
     <select id="prompts">
       <option value="Prompt 1">Prompt 1</option>
       <option value="Prompt 2">Prompt 2</option>
-      <!-- Add more options for the prompts you want to include -->
     </select>
     <button id="insertPrompt">Insert Prompt</button>
-    <!-- Added toggle for image hover feature -->
-    <label>
-      Enable Image Hover:
-      <input type="checkbox" id="imageHoverToggle" checked>
-    </label>
+    <textarea id="prompt-textarea" tabindex="0" data-id="root" rows="1" placeholder="Send a message" class="m-0 w-full resize-none border-0 bg-transparent p-0 pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparent md:pr-12 pl-3 md:pl-0" style="max-height: 200px; height: 24px; overflow-y: hidden;"></textarea>
   </div>
   <div id="altTextResult" class="result"></div>
   <div id="result" class="result"></div>
-  <div class="link-section" id="linkSection">
-    <a href="https://www.google.com">Google</a>
-    <!-- Add more default links as needed -->
-  </div>
+  
+  <!-- Dropdown for displaying schema -->
+  <select id="schemaDropdown"></select>
+
+
+  <!-- Moved checkbox and Show Links button to the bottom --> 
+  <!-- Want to remove this section but it breaks the schema checker output  -->
+ <label>
+    Enable Image Hover:
+    <input type="checkbox" id="imageHoverToggle" checked>
+  </label>
   <button onclick="toggleLinkSection()">Show Links</button>
+   <!-- Want to remove this section but it breaks the schema checker output  -->
   <script src="popup.js"></script>
 </body>
 </html>
