@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }).join('<br>');
         resultDiv.innerHTML += '<div class="section"><span class="title">H2 tags:</span><br>' + (h2TagsContent || 'Not found') + '</div>';
         resultDiv.innerHTML += '<div class="section"><span class="title">Canonical Tag:</span> <span style="color:' + (response.canonicalStatus ? 'green' : 'red') + '">' + (response.canonicalStatus ? 'Self-referencing (Good)' : 'Not self-referencing (Bad)') + '</span></div>';
-
         // New code for additional functionalities
         resultDiv.innerHTML += '<div class="section"><span class="title">Meta Robots:</span> ' + (response.robotsMeta || 'Not found') + '</div>';
         resultDiv.innerHTML += '<div class="section"><span class="title">Images with ALT:</span> ' + response.imagesWithAlt + '</div>';
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var canonicalTag = document.querySelector('link[rel="canonical"]');
       var canonicalURL = canonicalTag ? canonicalTag.href : null;
       var isSelfReferencing = canonicalURL === window.location.href;
-      
+
       // New code for additional functionalities
       var allImages = document.querySelectorAll('img');
       var imagesWithAlt = Array.from(allImages).filter(img => img.alt && img.alt.trim() !== '').length;
@@ -160,4 +159,38 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.tabs.create({ url: 'https://webcache.googleusercontent.com/search?q=cache:' + tabs[0].url });
     });
   });
+
+// Define the predefined prompts
+var prompts = {
+  'Prompt 1': 'This is the text for Prompt 1',
+  'Prompt 2': 'This is the text for Prompt 2',
+};
+
+document.getElementById('insertPrompt').addEventListener('click', function() {
+  // Get the selected value from the dropdown
+  var selectedValue = document.getElementById('prompts').value;
+
+  // Get the corresponding predefined text
+  var selectedPromptText = prompts[selectedValue];
+
+  // Get the textarea element by its ID
+  var textarea = document.getElementById('prompt-textarea');
+
+  // Insert the selected prompt text into the textarea
+  textarea.value = selectedPromptText;
+});
+  // code to perform the schema check
+document.getElementById('schemaCheck').addEventListener('click', function() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: "performSchemaCheck" }, function(response) {
+      var resultDiv = document.getElementById('result');
+      if (response) {
+        var formattedSchemaData = JSON.stringify(response, null, 2);
+        resultDiv.innerHTML += '<div class="section"><span class="title">Schema Data:</span><pre>' + formattedSchemaData + '</pre></div>';
+      } else {
+        resultDiv.innerHTML += '<div class="section"><span class="title">Schema Data:</span> Not found</div>';
+      }
+    });
+  });
+});
 });
