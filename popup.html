@@ -30,20 +30,21 @@
     <button id="checkPageSpeed">Check PageSpeed Insights</button>
     <button id="checkGoogleCache">Check Google Cache</button>
     <hr>
-    <label for="prompts">Choose a prompt:</label>
-    <select id="prompts">
-      <option value="Prompt 1">Prompt 1</option>
-      <option value="Prompt 2">Prompt 2</option>
-    </select>
+<label for="prompts">Chatgpt Helper: Choose a prompt:</label>
+<select id="prompts">
+  <option value="customPrompt1">Prompt Generator</option>
+  <option value="customPrompt2">Custom Prompt 2</option>
+</select>
+<p style="color: red;">Working on paste functionalilty but for time being choose a prompt press insert and copy from below window</p>
     <button id="insertPrompt">Insert Prompt</button>
     <textarea id="prompt-textarea" tabindex="0" data-id="root" rows="1" placeholder="Send a message" class="m-0 w-full resize-none border-0 bg-transparent p-0 pr-10 focus:ring-0 focus-visible:ring-0 dark:bg-transparent md:pr-12 pl-3 md:pl-0" style="max-height: 200px; height: 24px; overflow-y: hidden;"></textarea>
   </div>
   <div id="altTextResult" class="result"></div>
   <div id="result" class="result"></div>
   
-  <!-- Dropdown for displaying schema -->
-  <select id="schemaDropdown"></select>
 
+
+<p style="color: red;">This section is WIP . Enable image hoover is only part working </p>
 
   <!-- Moved checkbox and Show Links button to the bottom --> 
   <!-- Want to remove this section but it breaks the schema checker output  -->
@@ -51,8 +52,8 @@
     Enable Image Hover:
     <input type="checkbox" id="imageHoverToggle" checked>
   </label>
-  <button onclick="toggleLinkSection()">Show Links</button>
-   <!-- Want to remove this section but it breaks the schema checker output  -->
+
+
   <script src="popup.js"></script>
 </body>
 </html>
