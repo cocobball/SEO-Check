@@ -15,8 +15,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.action === "performSchemaCheck") { // Added schema check action
     performSchemaCheck(sendResponse);
     return true; // Enables asynchronous response
+  } else if (request.action === "checkFrameworks") {
+    checkFrameworks(sendResponse);
+    return true; // Enables asynchronous response
   }
 });
+// New function to check for Google Tag Manager
+function checkFrameworks(sendResponse) {
+  let gtmId = null;
+  const scripts = Array.from(document.getElementsByTagName('script'));
+  scripts.forEach(script => {
+    const match = script.textContent.match(/GTM-[A-Z0-9]+/);
+    if (match) {
+      gtmId = match[0];
+    }
+  });
+  sendResponse({ gtmId });
+}
 // New function to perform schema check
 function performSchemaCheck(sendResponse) {
   // Find the script tag containing the schema data
