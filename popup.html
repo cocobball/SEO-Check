@@ -4,14 +4,13 @@
   <title>Cory's SEO Checker</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
   <style>
-    /* Additional styles for the link section */
-    .link-section {
+    .link-section, .data-section {
       display: none;
       padding: 10px;
       border: 1px solid #ccc;
       margin-top: 10px;
     }
-    .link-section a {
+    .link-section a, .data-section div {
       display: block;
       margin-bottom: 5px;
     }
@@ -29,6 +28,7 @@
     <button id="checkGoogleIndex">Check Google Index</button>
     <button id="checkPageSpeed">Check PageSpeed Insights</button>
     <button id="checkGoogleCache">Check Google Cache</button>
+    <button id="checkFrameworks">Check Frameworks</button>
     <hr>
 
     <label for="prompts">ChatGPT Helper: Choose a prompt:</label>
@@ -43,10 +43,10 @@
 
   <div id="altTextResult" class="result"></div>
   <div id="result" class="result"></div>
+  <div id="frameworksResult" class="data-section"></div>
 
   <p style="color: red;">Enable image hover; this will display an overlay with img alt text, img size, and intrinsic size. Heading callouts will be added to this enable instead of being on by default.</p>
 
-  <!-- Moved checkbox and Show Links button to the bottom -->
   <label>
     <input type="checkbox" id="imageHoverToggle" checked>
     Enable Image Hover
