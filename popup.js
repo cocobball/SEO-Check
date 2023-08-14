@@ -255,6 +255,14 @@ document.getElementById('checkFrameworks').addEventListener('click', function() 
       } else {
         resultDiv.innerHTML = 'Google Tag Manager: <strong style="color:red;">No</strong>';
       }
+      // gt metrix 
+document.getElementById('redirect').addEventListener('click', function() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    var url = tabs[0].url;
+    var gtmetrixUrl = 'https://gtmetrix.com/?url=' + encodeURIComponent(url);
+    window.open(gtmetrixUrl, '_blank');
+  });
+});
     });
   });
 });
