@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Initialize toggle states
-  var isImageHoverEnabled = true;
-  var isHeadingPopupEnabled = true;
+  var isImageHoverEnabled = false;
+  var isHeadingPopupEnabled = false;
 
   // Add message listener for checkHeaders action
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
